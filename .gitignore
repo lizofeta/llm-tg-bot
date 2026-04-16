@@ -1,0 +1,41 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.egg-info
+pycache/
+*.pyo
+*.pyd
+*.pic
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Ruff cache
+.ruff_cache/
+
+# Databases (local)
+*.db
+*.sqlite3
