@@ -1,11 +1,11 @@
 from app.db.models import User
 from app.core.enums import Role
 
-from sqlalchemy import select 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 class UserStorage:
-    def __init__(self, db = AsyncSession) -> None:
+    def __init__(self, db: AsyncSession) -> None:
         self._db = db
     
     async def get_user_by_id(self, user_id: int) -> User | None:

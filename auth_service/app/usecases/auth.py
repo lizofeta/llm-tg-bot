@@ -81,7 +81,7 @@ class AuthUseCase:
         
         user = await self._users_repo.get_user_by_id(int(user_id))
         if user is None:
-            raise UserNotFoundError
+            raise UserNotFoundError()
 
         return user
         
