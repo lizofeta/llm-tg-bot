@@ -27,3 +27,14 @@ class InvalidTokenError(BaseHTTPException):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Невалидный токен."
         )
+
+class ExternalServiceError(BaseHTTPException):
+    def __init__(
+            self,
+            status_code: int = status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail: str = "Внешний сервис недоступен."
+    ) -> None:
+        super().__init__(
+            status_code=status_code,
+            detail=detail
+        )
