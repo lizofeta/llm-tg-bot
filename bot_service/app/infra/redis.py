@@ -9,3 +9,5 @@ def get_redis():
         settings.redis_url,
         decode_responses=True
     )
+
+redis_client = get_redis()
