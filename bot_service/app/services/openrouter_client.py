@@ -8,9 +8,9 @@ from app.core.exceptions import ExternalServiceError
 class OpenRouter:
     def __init__(self) -> None:
         self._api_key = settings.openrouter_api_key
-        self._base_url = settings.openrouter_base_url
+        self._base_url = str(settings.openrouter_base_url)
         self._model = settings.openrouter_model
-        self._referer = settings.openrouter_site_url
+        self._referer = str(settings.openrouter_site_url)
         self._title = settings.openrouter_app_name
         self._client = httpx.Client(timeout=30)
     
