@@ -1,14 +1,14 @@
 from app.infra.celery_app import celery_app
-from app.infra.redis import redis_client
+from app.infra.redis import sync_redis_client
 from app.services.openrouter_client import openrouter_client
 from app.core.enums import MessageRole
 
-import asyncio
 from pathlib import Path
+import json
 
 system_prompt = Path("app/prompts/system_prompt.txt").read_text()
 
-@celery_app.task(name="app.tasks.llm_tasks.llm_request")
+@celery_app.task
 def llm_request(
     tg_chat_id: int, 
     prompt: str
@@ -37,12 +37,14 @@ def llm_request(
     except Exception:
         content_llm_response = "Произошла ошибка при обращении к LLM"
     
-    key = f"llm_result:{tg_chat_id}"
 
-    with redis_client.pipeline() as pipe:
-        pipe.rpush(
-            key,
-            content_llm_response
+    sync_redis_client.rpush(
+            "llm_queue",
+            json.dumps(
+                {
+                    "chat_id": tg_chat_id,
+                    "text": content_llm_response
+                }
+            )
         )
-        pipe.expire(key, time=600)
-        pipe.execute()
+    sync_redis_client.expire("llm_queue", time=600)
