@@ -6,7 +6,8 @@ from app.core.enums import MessageRole
 from pathlib import Path
 import json
 
-system_prompt = Path("app/prompts/system_prompt.txt").read_text()
+def get_system_prompt() -> str:
+    return Path("app/prompts/system_prompt.txt").read_text(encoding="utf-8")
 
 @celery_app.task
 def llm_request(
@@ -17,7 +18,7 @@ def llm_request(
     messages = [
         {
             "role": MessageRole.SYSTEM,
-            "content": system_prompt
+            "content": get_system_prompt()
         },
         {
             "role": MessageRole.USER,
